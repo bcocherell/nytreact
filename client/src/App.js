@@ -1,20 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import Articles from "./pages/Articles";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
-// import Detail from "./pages/Detail";
-// import NoMatch from "./pages/NoMatch";
-// import Nav from "./components/Nav";
-// import Jumbotron from "./components/Jumbotron";
+import Search from "./pages/Search";
+import Articles from "./pages/Articles";
+import NoMatch from "./pages/NoMatch";
 
 const App = () => (
-  <div>
-    <Header />
-    <Router>
-      <Route exact path="/" component={Articles} />
-    </Router>
-  </div>
+  <Router>
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Search} />
+        <Route exact path="/search" component={Search} />
+        <Route exact path="/articles" component={Articles} />
+        <Route component={NoMatch} />
+      </Switch>
+    </div>
+  </Router>
 );
 
 export default App;

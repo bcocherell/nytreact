@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import {Grid, Row, Col, Panel, FormGroup, ControlLabel, FormControl, Button, Media} from 'react-bootstrap';
-import "./Articles.css";
+import "./Search.css";
 
 class Search extends Component {
   state = {
@@ -23,11 +23,11 @@ class Search extends Component {
   //     .catch(err => console.log(err));
   // };
 
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
+  addArticle = id => {
+    API.addArticle(this.state.articles.find( article => article._id === id ))
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { id, value } = event.target;
@@ -135,6 +135,13 @@ class Search extends Component {
                         <Media.Heading><a href={article.web_url} target="_blank">{article.headline.main}</a></Media.Heading>
                         <p><small><em>{article.byline ? (article.byline.original) : null}</em></small></p>
                         <p>{article.snippet}</p>
+                        <Button 
+                          bsStyle="info"
+                          bsSize="xsmall"
+                          onClick={() => this.addArticle(article._id)} 
+                        >
+                          save article
+                        </Button>
                       </Media.Body>
                     </Media>
                     ))
