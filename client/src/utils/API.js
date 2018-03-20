@@ -19,11 +19,25 @@ export default {
       searchURL += "&end_date=" + endYear.trim() + "0101";
     }
 
-    console.log(searchURL);
-
     return axios.get(searchURL);
   },
   addArticle: function(articleData) {
-    return axios.post("/api/articles", articleData);
-  }
+
+    const article = {
+      title: articleData.headline.main,
+      byline: articleData.byline ? articleData.byline.original : null,
+      pubdate: articleData.pub_date,
+      thumbnail: articleData.multimedia.find(image => image.subtype === 'thumbnail') ? ("https://www.nytimes.com/" + articleData.multimedia.find(image => image.subtype === 'thumbnail').url) : null,
+      url: articleData.web_url,
+      snippet: articleData.snippet
+    };
+
+    return axios.post("/api/articles", article);
+  },
+  getArticles: function() {
+    return axios.get("/api/articles");
+  },
+  deleteArticle: function(id) {
+    return axios.delete("/api/articles/" + id);
+  },
 };
