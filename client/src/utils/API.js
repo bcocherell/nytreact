@@ -16,7 +16,7 @@ export default {
     }
     
     if (parseInt(endYear, 10)) {
-      searchURL += "&end_date=" + endYear.trim() + "0101";
+      searchURL += "&end_date=" + endYear.trim() + "1231";
     }
 
     return axios.get(searchURL);
